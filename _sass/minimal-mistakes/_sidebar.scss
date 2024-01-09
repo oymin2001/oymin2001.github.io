@@ -56,9 +56,9 @@
 
   p,
   li {
-    font-family: $sans-serif;
+    font-family: $gmarket-sans;
     font-size: $type-size-6;
-    line-height: 1.5;
+    line-height: 1;
   }
 
   img {
@@ -173,8 +173,8 @@
   }
 }
 .sidebar .author__name {
-  font-family: $sans-serif;
-  font-size: $type-size-5;
+  font-family: $omyu;
+  font-size: $type-size-3;
 }
 
 .author__bio {

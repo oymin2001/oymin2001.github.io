@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\_includes",
-    "\\_includes\\head"
+    "\\assets",
+    "\\assets\\css",
+    "\\assets\\images",
+    "\\assets\\js",
+    "\\_includes\\head",
+    "\\_layouts",
+    "\\_pages"
   ],
-  "SelectedNode": "\\_includes\\head\\custom.html",
+  "SelectedNode": "\\assets\\css\\main.scss",
   "PreviewInSolutionExplorer": false
 }
