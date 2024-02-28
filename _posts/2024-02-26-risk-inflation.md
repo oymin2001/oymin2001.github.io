@@ -391,13 +391,13 @@ R^*(0,\Pi) &= \mathbb{E} \left[ Z^2I(Z^2>\Pi)  \right] = 2\left[\sqrt{\Pi}\phi(\
 $$
 
 
-$$\phi, \Phi$$는 각각 표준정규분포의 pdf와 cdf이다. 따라서  $$R^*(0,\Pi)$$는  $$Pi$$가 증가함에 따라 기하급수적으로 감소함을 알 수 있다.
+$$\phi, \Phi$$는 각각 표준정규분포의 pdf와 cdf이다. 따라서  $$R^*(0,\Pi)$$는  $$\Pi$$가 증가함에 따라 기하급수적으로 감소함을 알 수 있다.
 
 ![risk_component1](/images/2024-02-26-risk-inflation/risk_component1.png)
 
 
 
-즉 $$\Pi$$가 증가할 수록 $$\beta_i=0$$인 항에 대한 예측이 더 정확해진다는 것을 알 수 있다. 여기서 trade-off 관계를 고려해보면 반대로 $$\underset{w}{\text{sup}}R^*(w,\Pi)$$은 $$Pi$$가 증가함에 따라 마찬가지로 증가할 것임을 직관적으로 예상해볼 수 있을 것이다.
+즉 $$\Pi$$가 증가할 수록 $$\beta_i=0$$인 항에 대한 예측이 더 정확해진다는 것을 알 수 있다. 여기서 trade-off 관계를 고려해보면 반대로 $$\underset{w}{\text{sup}}R^*(w,\Pi)$$은 $$\Pi$$가 증가함에 따라 마찬가지로 증가할 것임을 직관적으로 예상해볼 수 있을 것이다.
 
 
 
