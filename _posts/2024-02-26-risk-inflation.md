@@ -18,10 +18,13 @@ Foster, D. & George, E. (1994), ‘The risk inflation criterion for multiple reg
 
 
 
+&nbsp;
+
 # Basic set up
 
-다음과 같은 선형 모델을 가정해보자.
 
+
+다음과 같은 선형 모델을 가정해보자.
 
 $$
 \mathbf{y} = X_1\beta_1 + ... + X_p\beta_p + \epsilon = \mathbf{X} \beta + \epsilon \text{ where } \epsilon \sim \mathcal{N}(0,\sigma^2I_n), \beta_1 \text{ is intercept term}, \mathbf{X} \text{ is fixed.}
@@ -46,7 +49,7 @@ $$
 \hat{\beta}_{\gamma} &= ((\mathbf{X}D_{\gamma})^T\mathbf{X}D_{\gamma})^{-1}(\mathbf{X}D_{\gamma})^T\mathbf{y} \text{ where } D_{\gamma} = diag[\gamma] 
 \end{align*}
 $$
- 
+
 
 in-sample에 대한 risk를 계산하기에, 좋은 모델을 찾는데 있어서  단순히 위의 $R$을 최소화하는 것은 적절해보이지 않고, 사실 least squares solution이 이에 대한 최적값이다. 따라서 다음 정의하는 risk 함수의 보정값인 **risk inflation**을 평가지표로 사용한다.
 
@@ -120,7 +123,7 @@ $$
 $$
 \tilde{RI}(\gamma) = \underset{\beta}{\text{sup}} \frac{R(\beta, \hat{\beta}_{\gamma})}{\underset{\gamma}{\text{inf}} \ R(\beta, \hat{\beta}_{\gamma})}
 $$
- 
+
 
 나중에 살펴볼 예정이지만 $$RI$$와 $$\tilde{RI}$$는 둘 다 비슷한 결과를 갖는다.
 
@@ -356,7 +359,7 @@ RI(j, \gamma_{\Pi}) &= \underset{\beta \in B_j}{\text{sup}}\frac{1}{j\sigma^2} \
 &= \frac{1}{j}[1 + (p-j)R^*(0,\Pi) + (j-1)\underset{w}{\text{sup}}R^*(w,\Pi)]
 \end{align*}
 $$
- 
+
 
 즉 $$j$$와 $$\Pi$$에 대한 함수이며, $j$에 대해 monotone이다.  따라서 $$\gamma_{\Pi}$$에 대한 risk inflation은 다음과 같이 나타낼 수 있다.
 
@@ -607,7 +610,7 @@ $$
 $$
 \frac{SSE_{\gamma}}{n-|\gamma|} = \frac{(n-|\gamma| )+ |\gamma|}{n(n-|\gamma|)}SSE_{\gamma} = \frac{1}{n}\left[SSE_{\gamma} + |\gamma|\frac{SSE_{\gamma}}{n-|\gamma|}\right]
 $$
- 
+
 
 
 
