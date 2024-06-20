@@ -161,7 +161,6 @@ $$
 
 **Note.** $$\sigma^2$$이 알려진 경우의 AIC,$$C_p$$,BIC는 모두 $$\gamma_{\Pi}$$의 특별한 케이스이다. 먼저 $$\sigma^2$$이 알려진 AIC는 다음과 같이 계산될 수 있다.
 
-
 $$
 \gamma_{\text{AIC}} = \underset{\gamma}{\text{arg min}} \ \text{AIC} \text{ where AIC}  = \frac{1}{2\sigma^2}\left[SSE_{\gamma} + |\gamma|\sigma^22 \right]
 $$
@@ -256,8 +255,7 @@ $$
 $$
 \begin{align*}
 R(\beta, \hat{\beta_{\gamma}}) &= \mathbb{E}_{\beta}\sum_{\gamma_i=0}(|X_i|\beta_i)^2 + \mathbb{E}_{\beta}\sum_{\gamma_i=1}(\frac{X_i^T(\mathbf{y}-X_i\beta_i)}{X_i^TX_i})^2X_i^TX_i \\
-&= \mathbb{E}_{\beta}\sum_{\gamma_i=0}(|X_i|\beta_i)^2 + \mathbb{E}_{\beta}\sum_{\gamma_i=1}\frac{(X_i^T\epsilon)^2}{|X_i|^2} \\
-&= \left[ \sum_{i=2}^p (|X_i|\beta_i)^2P[\gamma_i = 0] \right] + \left[ \sigma^2 + \sum_{i=2}\mathbb{E}_{\beta}\frac{(X_i^T\epsilon)^2}{|X_i|^2}I(\gamma_i=1) \right]
+ 
 \end{align*}
 $$
 

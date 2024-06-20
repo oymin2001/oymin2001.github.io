@@ -2,7 +2,7 @@
 layout: single
 title: "[도서 리뷰] 나 없이는 존재하지 않는 세상 - 카를로 로벨리"
 categories: 독서
-tag: [과학, 철학, 양자역학, 에른스트 마흐, 실증주의,나가르주나, 공 사상]
+tag: [과학, 철학]
 typora-root-url: ..\
 author_profile: false
 use_math: true
