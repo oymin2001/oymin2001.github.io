@@ -2,7 +2,7 @@
 layout: single
 title: "The risk inflation criterion"
 categories: ML
-tag: [OLS,Subset selection, Sparsity]
+tag: [In-sample Prediction, OLS,Subset selection, Sparsity]
 typora-root-url: ..\
 author_profile: false
 use_math: true
