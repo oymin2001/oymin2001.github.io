@@ -2,7 +2,7 @@
 layout: single
 title: "Weighting based multiple testing"
 categories: Statistics
-tag: [Multiple testing, Wighthing based]
+tag: [Multiple testing, Weighthing based]
 typora-root-url: ..\
 author_profile: false
 use_math: true
@@ -88,6 +88,10 @@ $$
 
 $$ \begin{align*} &P_i|_{H_i=0, \zeta_i} \sim Unif[0,1] \\ &P_i|_{H_i=1, \zeta_i} \sim \zeta_i \\ &P_i \sim (1-a)U + aF \end{align*} $$
 
+
+
+이제 $P_i$의 주변부 cdf를 $G=(1-a)U + aF$라고 하자.
+
 ### p-value 가중치의 확률분포
 
 다음은 결합 확률분포 $(H,W,P)$의 가정이다. 관측할 수 없는 실제 가설의 상태 $H$가 p-value $P$를 결정하며, 또한 BH의 한계를 극복하기 위해 가중치를 도입하기 위해 실제 가설의 상태 $H$가 가중치 $W$에 영향을 준다.
@@ -126,7 +130,13 @@ $$
 
 즉, 귀무가설과 대립가설의 기여분으로 나누어 표현할 수 있다.
 
-### 가중치를 통한 FDR 통제
+
+
+
+
+# wBH 절차
+
+
 
 먼저 FDR(False Discovery Rate)을 정의하자. 만약, 임계값 통계량 $T$를 이용하여, 이보다 작은 p-value를 갖는 가설들을 기각한다고 하면 FDP(false discovery proportion, 잘못 기각된 비율)는 다음과 같이 정의한다.
 
@@ -142,7 +152,7 @@ $$ FDR = \mathbb{E}_T[FDP(T)] $$
 
 $$ T_{BH} = \max \{P_{(i)}: P_{(i)} \leq \alpha\cdot\frac{i}{m} \} $$
 
-여기서 p-value의 cdf $G$에 대해 $m$개의 샘플로 구한 empirical cdf는 다음과 같다.
+여기서 p-value의 주변부 cdf $G$에 대해 $m$개의 샘플로 구한 empirical cdf는 다음과 같다.
 
 $$ \hat{G}_m(t) = \frac{\sum_iI(P_i \le t)}{m} $$
 
@@ -164,7 +174,15 @@ $$ T_{wBH} = \sup\{t: t \leq \alpha  \frac{\sum_{i}I(Q_i\leq t)}{\sum_jW_j}\} = 
 
 마찬가지로 임계값은 $Q_{(i)}$를 기준으로 기각되는 수가 달라지고, $\sum_jI(Q_j\leq Q_{(i)}) = i$이기 때문이다. 이제$\alpha k /\sum_jW_j$를 $q_k$라고 하자.
 
-이제, wBH 절차가 FDR을 $\alpha$이하로 통제할 수 있는지 확인해보자. 먼저 $H^m$이 주어졌을 때 조건부 FDR을 구해보자.
+
+
+## FDR의 상한 (가설의 수가 유한한 경우)
+
+이제, wBH 절차가 FDR을 $\alpha$이하로 통제할 수 있는지 확인해보자. 먼저 유한개의 가설에 대한 경우부터 고려해보자.
+
+$H^m$이 주어졌을 때 조건부 FDR을 먼저 계산하고, 조건부기댓값의 성질을 통해 $FDR$이 어떤 값을 갖는지 살펴보자.
+
+
 
 $$ \mathbb{E}[FDP(T_{wBH})|H^m] = \mathbb{E}[\frac{\sum_{i:H_i=0}I(Q_i \leq T_{wBH})}{\sum_jI(Q_j\leq T_{wBH})}|H^m] $$
 
@@ -210,4 +228,4 @@ Note. 이는 앞에서 정의한 $Q$의 cdf $D(\alpha)$에서의 귀무가설의
 
 
 
-이번 포스팅에서는 wBH절차가 FDR을 $\alpha$이하로 통제할 수 있음을 보였다. 하지만, 이는 단순히 FDR의 상한을 계산해보았기에, 다음 포스팅에서는 효율성을 따지기 위해 점근적 분석을 알아볼 예정이다.
+이번 포스팅에서는 wBH절차가 FDR을 $\alpha$이하로 통제할 수 있음을 보였다. 하지만, 이는 귀무가설에 대한 가중치의 기댓값과, 모비율 $\mu_0, (1-a)$에 의존하는 수동적인 상한이다. 다음 포스팅에서는 충분히 큰 $m$인 경우의 데이터에만 의존하는 FDR의 상한을 유도해보려 한다.
