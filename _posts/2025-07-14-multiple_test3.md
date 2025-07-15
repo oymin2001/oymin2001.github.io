@@ -8,7 +8,7 @@ author_profile: false
 use_math: true
 toc: true
 header:
-  overlay_image: /images/2025-07-12-multiple_test2/graph_representation.png
+  overlay_image: /images/2025-07-14-multiple_test3/power_ratio_curve.png
   overlay_filter: 0.5
 ---
 
@@ -205,3 +205,125 @@ $$
 
 따라서, $FDR \leq \alpha + o(1)$임을 알 수 있다.
 
+
+
+# Power arbitrage
+
+wBH절차의 검정력에 대해 알아보자. 가중치를 부여하는게 BH절차에 비해 효과적이려면, 가중치가 잘 부여되었을 때에는 검정력이 상승하고, 잘못 부여되었을 때에는 너무 낮게 떨어지지 않아야 한다. 결론부터 말하면, 가중치를 잘 사용하면 검정력이 크게 향상되는 반면, 가중치를 잘못 사용하더라도 검정력의 손실은 크지 않다. 이를 Power arbitrage라고 부른다. $\mu = (1-a)\mu_0 + a\mu_1 = 1$인 상황을 가정한다. 즉, $0<\mu_0 <1/(1-a)$이고, $0<\mu_1<1/a$이다.
+
+$\mu_1>1$인 경우를 유익한 경우(Informative case), $\mu_1<1$인 경우를 잘못된 경우(mis-Informative case) 로 나눠 분석을 진행한다.
+
+## mis-Informative case
+
+먼저, mis-Informative인 경우의 손실이 작은 이유는 모델 가정에 있어서 대립가설의 분포가 항상 귀무가설 하에서보다 작은 확률분포를 가정하였기 때문이다.
+
+1. 실제 대립가설에 실수로 낮은 가중치를 부여하더라도, 대립가설에서 나온 p-value가 충분히 작기에 여전히 유의미할 수 있다.
+2. 실제 귀무가설에 실수로 높은 가중치를 부여하더라도 $m$이 충분히 크면 FDR이 $\alpha$이하임을 위에서 보였다.
+
+
+
+## Informatrive case
+
+이제 informative인 경우의 이득을 살펴보자.
+
+임계값 $t$에 대한 함수로 제 1종 오류 $I(t)$,  wBH 절차에서의 검정력 $H(t)$은 각각 아래와 같다 (BH 절차에서의 검정력은 $Pr(P\leq t\|H=1)=F(t)$이다.)
+
+$$
+\begin{align*} I(t) &= Pr(P\leq Wt|H=0) = \int wtdQ_0(w) = \mu_0 t \\ H(t) &= Pr(P\leq Wt|H=1) = \int F(wt)dQ_1(w)
+
+\end{align*}
+$$
+
+$\mu=1$로 고정되어 있기에, 유익한 경우에 제 1종 오류는 감소함을 알 수있다.
+
+이제 $t^w,t^0$을 각각 모집단 cdf로부터 구해진 wBH절차, BH절차에서의 점근적인 임계값이라고 하자. 즉,
+
+$$ \begin{align*} &\frac{t^w}{D(t^w)} = \alpha = \frac{t^0}{G(t^0)}
+
+\end{align*} $$
+
+위 관계식을 이용하여, 최종적으로 알고 싶은 wBH절차와 BH절차에 대한 검정력의 비는 다음과 같다.
+
+$$ \frac{H(t^w)}{F(t^0)} = \frac{t^w}{t^0}[ 1 + (\mu_1-1)\frac{t^0}{F(t^0)}] $$
+
+즉 임계값 $(t^w,t^0)$의 비율에 따라 달리짐을 의미한다. 하지만 각각의 임계값도 결국 BH,wBH절차의 대립가설하의 cdf $H,F$에 의존하는 값이기에 의미 있는 해석을 할 수는 없고, 결국 알고싶은 것은 가중치를 쓰는 것이 실제로 검정력을 높이는가라는 질문에 대한 적절한 답은 아닌 것 같다.
+
+따라서 가중치의 효과를 점진적으로 분석할 수 있도록, 다음을 고려해보자.
+
+$Q_0$을 고정하여 $\lambda \in[0,1]$을 이용해 $W^{\lambda}=\lambda W +(1-\lambda)$라고 하자. $\lambda$는 가중치의 강도를 조절하는 모수로 해석할 수 있다.
+
+또한,  $W^{\lambda}$에 대한 wBH절차에서의 임계값을 $t^{\lambda}$; 즉 $t^{\lambda}/D^{\lambda}(t^{\lambda})=1/\alpha$라고 하자.
+
+이제 $H(t^{\lambda})/F(t^0)$; 즉, $t^{\lambda}/t^0$의 비를 분석하여, 가중치의 강도에 따른 검정력의 비를 확인해보자.
+
+**Note**. $\lambda=0$일 때, $D^{\lambda}=G, t^{\lambda} = t^0$이고, $\lambda=1$일 때의 $D^{\lambda} = H, t^{\lambda} =t^w$이다.
+
+
+
+1차 테일러 근사를 통해, $t^{\lambda} \approx t^0 + \frac{dt^{\lambda}}{d\lambda}\|_{\lambda=0} \cdot \lambda$임을 알 수 있다. 따라서, $dt^{\lambda}/d\lambda$을 구해보자.
+
+먼저, 다음의 관계식이 성립한다.
+
+
+$$
+\begin{align*} &\frac{D^{\lambda}(t^{\lambda})}{t^{\lambda}} - \frac{G(t^0)}{t^0} = 0 \\ &\frac{(1-a)(\lambda\mu_0+(1-\lambda))t^{\lambda} + a\int F((\lambda w+1-\lambda)t^{\lambda})dQ_1(w)}{t^{\lambda}}  - \frac{(1-a)t_0+aF(t_0)}{t^0}  =0 \\ &\lambda(1-a)(\mu_0-1) + a\frac{\int F((\lambda w+1-\lambda)t^{\lambda})dQ_1(w)}{t^{\lambda}} - a\frac{F(t_0)}{t_0} = 0 \\ &-\lambda a(\mu_1 - 1) + a\frac{\int F((\lambda w+1-\lambda)t^{\lambda})dQ_1(w)}{t^{\lambda}} - a\frac{F(t_0)}{t_0} = 0
+
+\end{align*}
+$$
+ 
+
+따라서,
+
+$$ R(t,\lambda) =  \frac{\int F((\lambda w+1-\lambda)t)dQ_1(w)}{t}-(\mu_1 - 1) - \frac{F(t_0)}{t_0} $$
+
+에 대해 $R(t^{\lambda},\lambda)$는 $\lambda \in [0,1]$에서 항상 $0$이다. 따라서, 음함수 정리에 의해 다음이 성립한다.
+
+$$ \frac{dt^\lambda}{d\lambda}\bigg|*{t^0, 0} = - \frac{\partial R / \partial \lambda}{\partial R / \partial t}\bigg|*{(t, \lambda)=(t^0, 0)} = (\mu_{1}-1)t^{0}\frac{f(t^{0})-t^{0}}{F(t^{0})-t^{0}f(t^{0})} $$
+
+이를 위 1차 테일러 근사식에 대입하면 아래와 같다.
+
+$$ \frac{t^{\lambda}}{t^0} \approx 1 + \lambda(\mu_{1}-1)t^{0}\frac{f(t^{0})-t^{0}}{F(t^{0})-t^{0}f(t^{0})} $$
+
+그러므로, 검정력의 비는 다음과 같다.
+
+$$ \frac{H(t^{\lambda})}{F(t^0)} = [1 + \lambda(\mu_{1}-1)t^{0}\frac{f(t^{0})-t^{0}}{F(t^{0})-t^{0}f(t^{0})}][ 1 + (\mu_1-1)\frac{t^0}{F(t^0)}] $$
+
+또한, $F$는 순오목함수임으로, 접선이 항상 $F$보다 위에 있다. $F(0)=0$에 대해 비교하면,
+
+$$ 0 < F(t) + f(t)(0-t) = F(t) - tf(t) \ (t\neq 0) $$
+
+즉, 유익한 경우(Informative case, $\mu > 1$)인 경우에 대해 $f(t^0) > t^0$이면 검정력은 항상 BH절차보다 좋음을 알 수 있다.
+
+$F$는 순오목 함수인 경우에 대해서만 다루고 있고, cdf는 단조증가함수이기에, 이에 대한 도함수 $f$는 단조 감소함수이다. 또한, $t^0 = \alpha G(t^0)\geq \alpha$이다. 따라서, $f(\alpha) > \alpha$인 경우에 대하여, 다음과 같이 $f(t^0) >t^0$이 성립한다.
+
+$$ f(t^0) \geq f(\alpha) > \alpha \geq t^0 $$
+
+
+
+이제, 대립가설하의 검정통계량 분포가 $\mathcal{N}(\theta,1)$인 경우에 대해 $f_{\theta}(\alpha)>\alpha$; 즉 power arbitrage가 발생하는 $\theta$의 범위를 직접 구해보자. (귀무가설의 분포는 $\mathcal{N}(0,1)$)
+
+만약 단측검정을 한다고 가정하면 p-value $t$와 관측된 검정통계량 $x$간의 관계는 $t = 1-\Phi(x)$; $x = \Phi^{-1}(1-t)$이다. 따라서,
+
+$$ \begin{align*} f_\theta(t) = f(x)|\frac{dx}{dt}| =  \phi(x-\theta) \cdot \frac{1}{\phi(x)} = \exp(-\frac{\theta^2}{2} +\theta \Phi^{-1}(1-t))\\
+
+\end{align*} $$
+
+이를 $f_{\theta}(\alpha) > \alpha$인 관계식에 대입하면 다음과 같은 $\theta$의 범위가 나온다.
+
+$$ 0 \leq \theta \leq \Phi^{-1}(1-\alpha) + \sqrt{(\Phi^{-1}(1-\alpha))^2-2\log \alpha} $$
+
+다음은 wBH절차와 BH절차의 검정력의 비를 나타낸 그래프이다. $\alpha=0.05$, 대립가설의 비 $a=0.05$로 고정한채로 대립가설의 분포가  $\mathcal{N}(\theta,1)$일 때, 효과의 크기에 대한 모수 $\theta$를 x축으로, 사전 정보를 활용한 가중치의 유익함 $\mu_1$을 y축으로 하여 검정력의 비 $H(t^w)/F(t^0)$를 등고선으로 나타내었다.
+
+![power_ratio_curve](/images/2025-07-14-multiple_test3/power_ratio_curve.png)
+
+
+
+효과의 크기가 적을수록, 즉 귀무가설과 대립가설의 차가 미미해서 발견하기 어렵고, 가중치의 유익함이 큰 경우 검정력의 비가 가장 차이가 크게 나고 있음을 알 수 있다.
+
+또한, 위 식에서 $\alpha=0.05$에 대한 유익한 가중치일 구간이 $\theta \in [0, 4.59]$지만, 실제 검정비가 $1$이 되는 지점은  이보다 훨씬 오른쪽에 위치해 있음을 알 수 있다.
+
+
+
+지금까지 사전 정보를 가중치로 활용하여 검정력을 높이는 wBH 절차를 살펴보았고, 이 절차가 어떤 표본 크기에서든 FDR을 안전하게 통제함을 보였다. 또한, 유익한 가중치는 검정력을 크게 높이는 반면 잘못된 가중치의 손실은 작다는 power arbitrage를 확인해 볼 수 있었다. 
+
+하지만, 이 논문은 가중치를 사용하는 통계적 틀과 그 타당성을 증명하는 데 집중할 뿐, 실제 데이터에서 '어떻게' 효과적인 가중치를 만들 것인지에 대한 구체적인 방법론은 제시하지 않는다.
