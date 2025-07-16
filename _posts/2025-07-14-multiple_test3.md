@@ -98,8 +98,12 @@ $$ \lim_{n\rightarrow \infty}\mathbb{E}[|X_n-Z|] = \mathbb{E}[\lim_{n\rightarrow
 # FDR의 상한 (가설의 수가 충분히 큰 경우)
 
 이제 wBH 절차의 임계점을 $T_{m}$이라고 표기하자.
+$$
+T_{m} = \sup\{t:\hat{C}_m(t)\geq \frac{1}{\alpha} \} \text{ where } \hat{C}_m(t) = \frac{\hat{D}_m(t)}{t\bar{W}_m} = \frac{\sum_{i}I(P_i\leq W_it)}{t\sum_iW_i}
+$$
 
-$$ T_{m} = \sup\{t:\hat{C}_m(t)\geq \frac{1}{\alpha} \} \text{ where } \hat{C}_m(t) = \frac{\hat{D}_m(t)}{t\bar{W}*m} = \frac{\sum*{i}I(P_i\leq W_it)}{t\sum_iW_i} $$
+
+
 
 $\hat{C}_m(t)$는 $Q$의 주변부 cdf $D$와 $W_i$의 기댓값 $\mu$의 추정량을 사용한 함수이므로, 점근분석을 위해 다음을 고려해보자.
 
