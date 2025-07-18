@@ -2,7 +2,7 @@
 layout: single
 title: "Weighting based multiple testing"
 categories: Statistics
-tag: [Multiple testing, Weighthing based]
+tag: [Multiple testing, Weighting based]
 typora-root-url: ..\
 author_profile: false
 use_math: true
@@ -160,13 +160,19 @@ $$ \hat{G}_m(t) = \frac{\sum_iI(P_i \le t)}{m} $$
 
 $$ T_{BH} = \max \{t \in \{P_{(1)},...,P_{(m)}\}: t \leq \alpha \hat{G}_m(t) \} $$
 
-또한, 임의의 $j>i$인 $P_{(j)}$에 대해서는 $$P_{(j)} > \alpha \hat{G}_m(t)$$이며, $$P_{(i)} \leq t < P_{(i+1)}$$ 인 $t$들에 대해서는 $\hat{G}_m(t) = i/m$이다. 하지만, 이 구간에서 어떤 임계점을 잡아도 결국 **기각되는 가설의 수는 변함이 없으므로** BH절차의 임계값은 다시 다음처럼 쓸 수 있다.
+또한, 임계값을$ P_{(i)}$라 하면 임의의 $j>i$인 $P_{(j)}$에 대해서는 $$P_{(j)} > \alpha \hat{G}_m(t)$$이며, $$P_{(i)} \leq t < P_{(i+1)}$$ 인 $t$들에 대해서는 $\hat{G}_m(t) = i/m$이다. 하지만, 이 구간에서 어떤 임계점을 잡아도 결국 **기각되는 가설의 수는 변함이 없으므로** BH절차의 임계값은 다시 다음처럼 쓸 수 있다.
 
 $$ T_{BH} = \sup\{t:\hat{B}(t)\leq \alpha \} \text{ where } \hat{B}(t) = \frac{t}{\hat{G}_m(t)} $$
 
-자연스럽게 wBH 절차는 $\hat{B}(t)$에서  p-value의 empirical cd를 가중치가 반영된 p-value $Q$에 대한 empirical cdf $\hat{D}(t)$를 가중치의 표본 평균 $\bar{W}_n$으로 나눈 값으로 대체하여 임계값을 계산한다.
+자연스럽게 wBH 절차는 $\hat{B}(t)$에서  p-value의 empirical cdf를 가중치가 반영된 p-value $Q$에 대한 empirical cdf $\hat{D}(t)$를 가중치의 표본 평균 $\bar{W}_n$으로 나눈 값으로 대체하여 임계값을 계산한다.
 
-$$ T_{wBH} = \sup\{t:\hat{R}(t)\leq \alpha \} \text{ where } \hat{R}(t) = \frac{t\bar{W}*m}{\hat{D}(t)} = \frac{t\sum_iW_i}{\sum*{i}I(P_i\leq W_it)} $$
+
+$$
+T_{wBH} = \sup\{t:\hat{R}(t)\leq \alpha \} \text{ where } \hat{R}(t) = \frac{t\bar{W}_m}{\hat{D}(t)} = \frac{t\sum_iW_i}{\sum_{i}I(P_i\leq W_it)}
+$$
+
+
+
 
 이를 $Q_{(i)}$로 나타내면 아래와 같다.
 
@@ -204,7 +210,7 @@ $$ \mathbb{E}[\frac{I(Q_i \leq T_{wBH})}{\sum_jI(Q_j\leq T_{wBH})}|H^m,R_{k,i}] 
 
 $$ \begin{align*} \mathbb{E}[FDP(T_{wBH})|H^m] &= \sum_{i : H_i=0}\sum_{k=1}^m  \frac{1}{k}Pr((Q_i\leq q_k) \cap R_{k,i}|H^m) \\ &= \sum_{i : H_i=0}\sum_{k=1}^m  \frac{1}{k} \mathbb{E}[Pr((P_i\leq W_iq_k) \cap R_{k,i}|H^m,W^m)|H^m ] \end{align*} $$
 
-이제 $P^m$에 대한 조건부 분포로 주어지고, 각각의 $P_i$들은 독립이라 가정했기에 위의 사건의 교집합을 각각의 확률의 곱으로 쪼갤 수 있으며, $H_i=0$로 주어진 상태에서 $P_i$들은 균등분포를 따르기에 다음과 같이 쓸 수 있다.
+이제 $P^m$에 대한 조건부 분포로 주어지고, 각각의 $R_{k,i}$의 정의에 의해들은 위의 두 사건은 독립으로 교집합을 각각의 확률의 곱으로 쪼갤 수 있으며, $H_i=0$로 주어진 상태에서 $P_i$들은 균등분포를 따르기에 다음과 같이 쓸 수 있다.
 
 $$ \begin{align*} \mathbb{E}[FDP(T_{wBH})|H^m] &= \sum_{i : H_i=0}  \mathbb{E}[\frac{\alpha W_i}{\sum_j W_j}\sum_{k=1}^m Pr(R_{k,i}|H^m,W^m)|H^m ] \\ &= \sum_{i : H_i=0}  \mathbb{E}[\frac{\alpha W_i}{\sum_j W_j}|H^m ] \end{align*} $$
 
@@ -214,7 +220,7 @@ $$ \begin{align*} FDR &= \mathbb{E}[FDP] = \mathbb{E}[\mathbb{E}(FDP|H^m)] \\ &=
 
 \end{align*} $$
 
-또한 가중치의 기댓값 $\mu = (1-a)\mu_0 + a\mu_1$이며 마찬가지로 $\sum_j W_j=m$ (즉,$\mu=1$)로 잡는다면, $\mu_0 \leq (1-a)^{-1}$이다. 이 부등식을 위 FDR에 대입하면 항상 $\alpha$보다 적가나 같음을 알 수 있다.
+또한 가중치의 기댓값 $\mu = (1-a)\mu_0 + a\mu_1$이며 마찬가지로 $\sum_j W_j=m$ (즉,$\mu=1$)로 잡는다면, $\mu_0 \leq (1-a)^{-1}$이다. 이 부등식을 위 FDR에 대입하면 항상 $\alpha$보다 작거나 같음을 알 수 있다.
 
 Note. 이는 앞에서 정의한 $Q$의 cdf $D(\alpha)$에서의 귀무가설의 기여분과 같다.
 
@@ -228,4 +234,4 @@ Note. 이는 앞에서 정의한 $Q$의 cdf $D(\alpha)$에서의 귀무가설의
 
 
 
-이번 포스팅에서는 wBH절차가 FDR을 $\alpha$이하로 통제할 수 있음을 보였다. 하지만, 이는 귀무가설에 대한 가중치의 기댓값과, 모비율 $\mu_0, (1-a)$에 의존하는 수동적인 상한이다. 다음 포스팅에서는 충분히 큰 $m$인 경우의 데이터에만 의존하는 FDR의 상한을 유도해보려 한다.
+이번 포스팅에서는 wBH절차가 FDR을 $\alpha$이하로 통제할 수 있음을 보였다. 하지만, 이는 귀무가설에 대한 가중치의 기댓값과, 모비율 $\mu_0, (1-a)$에 의존하는 수동적인 상한이다. 다음 포스팅에서는 충분히 큰 $m$인 경우의 데이터에만 의존하는 FDR의 상한을 유도하여 마찬가지로 $\alpha$이하로 통제함을 보일 예정이다. 즉 BH와 같이 $\alpha$이하로 통제함으로 마지막으로, wBH절차가 BH절차보다 더 검정력이 좋음을 밝혀 더 나은 절차임을 설명할 것이다.
