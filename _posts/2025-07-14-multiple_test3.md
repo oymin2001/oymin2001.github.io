@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "Weighting based multiple testing cont"
+description: "점근분석을 통해 wBH절차 하에서 가설의 수가 충분히 많은 경우에 대해  데이터에만 의존하는 FDR의 상한을 유도해보자"
 categories: Statistics
 tag: [Multiple testing, Weighting based, Asymptotic analysis]
 typora-root-url: ..\

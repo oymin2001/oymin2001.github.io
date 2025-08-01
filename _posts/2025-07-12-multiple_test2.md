@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "Weighting based multiple testing"
+description: "사전정보를 활용하여 p-value마다 가중치를 부여하여 검정하는 방법을 다룬다"
 categories: Statistics
 tag: [Multiple testing, Weighting based]
 typora-root-url: ..\

@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "Grouping based multiple testing"
+description: "다중 검정에서 가설들이 교환가능하지 않을 경우, 군집화를 기반으로 이를 해결하는 방법론들을 다룬다."
 categories: Statistics
 tag: [Multiple testing, Grouping based]
 typora-root-url: ..\

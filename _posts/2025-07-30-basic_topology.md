@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "Basic Topology"
+description: "루딘의 PMA 2단원을 정리한 내용이다. 열린집합과 닫힌 집합, 컴팩트 집합, 연결집합을 소개하고, 유클리드 공간을 넘어 일반적인 거리공간의 성질을 간략히 다룬다."
 categories: Mathematic
 tag: [Mathematical Analysis, Topology]
 typora-root-url: ..\

@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "p-value based multiple testing with side information"
+description: "부가정보(side information)을 활용한 p-value 기반의 다중 검정모델인 AdaPT와 IHW를 다루는 포스팅입니다."
 categories: Statistics
 tag: [Multiple testing, p-value based, Martingale, Stochastic process]
 typora-root-url: ..\
