@@ -2,7 +2,7 @@
 layout: single
 title: "Weighting based multiple testing cont"
 categories: Statistics
-tag: [Multiple testing, Weighting based]
+tag: [Multiple testing, Weighting based, Asymptotic analysis]
 typora-root-url: ..\
 author_profile: false
 use_math: true

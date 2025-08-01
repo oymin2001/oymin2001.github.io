@@ -166,7 +166,7 @@ $E^c$가 열린 집합임으로 $\{G_{\alpha}\}$를 $E$의 열린 덮개라고 �
 
 
 
-Theorem 5. 칸토어의 교차 정리 (Cantor's Intersection Theorem)
+### Theorem 5. 칸토어의 교차 정리 (Cantor's Intersection Theorem)
 
 포함관계가 작아지는 공집합이 아닌 콤팩트 집합 열 $\{K_n: K_{n+1} \subset K_{n}, K_n\neq \emptyset\}$에 대해 
 
