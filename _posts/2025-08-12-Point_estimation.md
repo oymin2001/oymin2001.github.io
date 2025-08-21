@@ -142,6 +142,30 @@ f(x;\theta) &= \prod_{i=1}^n\exp[\eta(\theta)^TT(x_i)-A(\theta)+S(x_i)] \\ &= \e
 
 즉, 충분통계량은 표본의 수 $n$에 상관없이 $\sum_{i=1}^nT(X_i)$라는 고정된 차원의 벡터로 주어진다.
 
+
+
+신뢰성 분석이나 생존 분석에서는 $X_1,...,X_n$의 전체 데이터가 아닌 순서통계량 $X_{(1)} \leq ... \leq X_{(r)} (1\leq r \leq n)$과 같이 중도 절단(censored)된 데이터가 획득된다. 즉, $X_{(r)}$보다 크거나 같은 $(n-r)$개의 데이터에 관한 정보는 주어지지 않는다.
+
+이제 $X_1,...,X_n$의 확률밀도함수를 $f(x;\theta)$, 누적분포함수를 $F_{\theta}(x)$라고 하면 $(X_{(1)},...,X_{(r)})$의 결합확률밀도 함수는 다음과 같이 쓸 수 있다.
+
+$$ \begin{align*} [\frac{n!}{(n-r)!} (1-F_{\theta}(x_{(r)}))^{n-r} ]\cdot [\prod_{i=1}^rf(x_{(i)};\theta) ] \cdot I(x_{(1)}\leq ...\leq x_{(r)})
+
+\end{align*} $$
+
+모수 $(\mu,\sigma) \in \mathbb{R} \times \mathbb{R}^+$를 갖는 지수분포 $Exp(\mu, \theta)$를 예로들면 $Y=(X_{(1)},...,X_{(r)})$의 결합확률밀도함수는 다음과 같이 나타난다.
+
+$$ \begin{align*} f(y;\mu,\sigma)&= \frac{n!}{(n-r)!} \cdot \frac{1}{\sigma^r}\exp[- (n-r)\frac{y_r-\mu}{\sigma} - \sum_{i=1}^r\frac{y_i - \mu}{\sigma}] \cdot I(y_1 \geq \mu) \\ &= \frac{n!}{(n-r)!} \cdot \exp[-\frac{(n-r)y_r+\sum_{i=1}^r y_i - n\mu}{\sigma}]\cdot \frac{I(y_1\geq \mu)}{\sigma^r}
+
+\end{align*} $$
+
+따라서, 분해정리에 의해 $(\mu, \sigma)$에 대한 충분통계량은 $(X_{(1)}, (n-r)X_{(r)}+X_{(1)}+...+X_{(r)})$이다.
+
+추가적으로 분해정리에 의해 $\mu$가 알려진 경우에 $\sigma$에 대한 충분통계량은 $(n-r)X_{(r)}+X_{(1)}+...+X_{(r)}$이고 $\sigma$가 알려진 경우에 $\mu$에 대한 충분통계량은 $X_{(1)}$임을 알 수 있다.
+
+$$ \begin{align*} &\frac{n!}{(n-r)!} \cdot \exp[-\frac{(n-r)y_r+\sum_{i=1}^r y_i - n\mu}{\sigma}]\frac{I(y_1\geq \mu)}{\sigma^r} \\ =&\frac{n!I(y_1\geq \mu)}{(n-r)!}\cdot  \frac{1}{\sigma^r} \exp[-\frac{(n-r)y_r+\sum_{i=1}^r y_i - n\mu}{\sigma}] \\ =& \frac{n!}{(n-r)!\sigma^r} \exp[-\frac{(n-r)y_r+\sum_{i=1}^r y_i}{\sigma}] \cdot \exp(\frac{n\mu}{\sigma})I(y_1 \geq \mu) \end{align*} $$
+
+
+
 ### 최소 충분 통계량
 
 한편, 충분통계량의 정의를 살펴보면 충분통계량 $Y$의 일대일 변환으로 주어지는 통계량 $W=g(Y)$에 대해서도 마찬가지로 해당 모수에 대한 충분통계량임을 보일 수 있다.
@@ -349,25 +373,35 @@ $$ \text{ARE}(\{\hat{\theta}^1_n\},\{\hat{\theta}^2_n\}) = \frac{\sigma_2^2(\the
 
 ### 크래머-라오 부등식 (Cramer-Rao Inequality)
 
-랜덤 표본 $X=(X_1,...,X_n) \sim f(x;\theta), \ \theta\in\Omega$인 확률모형에 대해 적절한 조건하에서, 모수에 대한 함수 $\eta = \eta(\theta) <\infty$의 추정량 $\hat{\eta}_n$의 분산에 대해 다음의 부등식이 성립한다.
+랜덤 표본 $X=(X_1,...,X_n) \sim f(x;\theta), \ \theta\in\Omega$인 확률모형에 대해 적절한 조건하에서, 모수에 대한 함수 $\eta = \eta(\theta)$의 추정량 $\hat{\eta}_n$의 분산에 대해 다음의 부등식이 성립한다.
 
 
 $$
-\text{Var}(\hat{\eta}_n) \leq (\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n))^T(nI(\theta))^{-1}(\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n)), \ \forall \theta \in \Omega
+\text{Var}(\hat{\eta}_n) \succeq (\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n))^T(nI(\theta))^{-1}(\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n)), \ \forall \theta \in \Omega
 $$
 
 
 
 
-먼저 적절한 조건 하에서 다음이 성립한다.
+$\eta \in \mathbb{R}^1$인 경우 다음과 같이 쓸 수 있다.
 
 
 $$
-\begin{align*} \text{Cov}_{\theta}(\hat{\eta}_n, nl_n'(\theta)) &= \mathbb{E}_{\theta}[\hat{\eta}_n\cdot nl_n'(\theta)] - \mathbb{E}_{\theta}[\hat{\eta}_n]\mathbb{E}_{\theta}[nl'_n(\theta)] \\ &=\mathbb{E}_{\theta}[\hat{\eta}_n\frac{\partial }{\partial \theta}\log f(x;\theta)]
+ \text{Var}(\hat{\eta}_n) \geq (\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n))^T(nI(\theta))^{-1}(\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n)), \ \forall \theta \in \Omega 
+$$
 
-- \mathbb{E}_{\theta}[\hat{\eta}_n]\mathbb{E}_{\theta}[\sum_{i=1}^n\frac{\partial }{\partial \theta}\log f(x_i;\theta)] \\ &= \int \hat{\eta}_n\cdot \frac{\partial f(x;\theta)/\partial \theta}{f(x;\theta)}f(x;\theta)  -\mathbb{E}_{\theta}[\hat{\eta}_n]\cdot \sum_{i=1}^n\int \frac{\partial }{\partial \theta}f(x_i;\theta)\frac{1}{f(x_i;\theta)}f(x_i;\theta)dx_i \\ &= \frac{\partial }{\partial \theta}\int\hat{\eta}_nf(x;\theta)dx - \mathbb{E}_{\theta}[\hat{\eta}_n] \cdot \sum_{i=1}^n\frac{\partial }{\partial \theta}\int f(x_i;\theta)dx_i \\ &= \frac{\partial }{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n] - \mathbb{E}_{\theta}[\hat{\eta}_n] \cdot 0 = \frac{\partial }{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n], \ \forall \theta \in \Omega
 
-\end{align*}
+
+
+
+
+먼저 $\theta\in\mathbb{R}^1, \eta:\mathbb{R}^1 \rightarrow \mathbb{R}^1$인 경우 다음과 같이 보일 수 있다.
+
+적절한 조건 하에서 추정량 $\hat{\eta}_n$과 점수함수 $l'_n(\theta)$의 공분산에 대해 다음이 성립함을 알고 있다.
+
+
+$$
+\begin{align*} \text{Cov}_{\theta}[\hat{\eta}_n, l'_n(\theta)] &= \mathbb{E}_{\theta}[\hat{\eta}_nl'_n(\theta)] \ (\because \mathbb{E}_{\theta}[l'_n(\theta)] = 0) \\ &= \int \hat{\eta}_n \frac{\partial }{\partial \theta}\log f(x;\theta) \cdot  f(x;\theta)dx \ \text{ where } f(x;\theta) = \prod_{i=1}^nf(x_i;\theta)\\ &= \int \hat{\eta}_n \frac{\partial f(x;\theta)/\partial \theta}{f(x;\theta)} f(x;\theta)dx = \frac{\partial}{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n] \end{align*}
 $$
 
 
@@ -377,5 +411,124 @@ $$
 
 
 $$
-\begin{align*} \text{Cov}_{\theta}(\hat{\eta}_n, nl_n'(\theta))^2 &\leq \text{Var}_{\theta}(\hat{\eta}_n)\text{Var}_{\theta}(nl_n'(\theta)) \\ (\frac{\partial }{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n])^2 &\leq  \text{Var}_{\theta}(\hat{\eta}_n)\cdot(nI(\theta)) \\ \text{Var}_{\theta}(\hat{\eta}_n) &\geq (\frac{\partial }{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n])^2(nI(\theta))^{-1}, \ \forall \theta \in \Omega \end{align*}
+ \begin{align*} \text{Cov}_{\theta}(\hat{\eta}_n, l_n'(\theta))^2 &\leq \text{Var}_{\theta}(\hat{\eta}_n)\text{Var}_{\theta}(l_n'(\theta)) \\ (\frac{\partial }{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n])^2 &\leq  \text{Var}_{\theta}(\hat{\eta}_n)\cdot(nI(\theta)) \\ \text{Var}_{\theta}(\hat{\eta}_n) &\geq (\frac{\partial }{\partial \theta}\mathbb{E}_{\theta}[\hat{\eta}_n])^2(nI(\theta))^{-1}, \ \forall \theta \in \Omega \end{align*}
 $$
+
+
+
+
+이제 $\eta \in \mathbb{R}^m, \theta \in \mathbb{R}^p$의 일반적인 경우의 증명은 다음과 같다.
+
+먼저 표현상의 편의를 위해 $\hat{\eta}=\hat{\eta}_n$이라고 하고 점수함수 벡터를 다음과 같이 나타내자.
+
+
+$$
+S(\theta) := (\frac{\partial}{\partial\theta_j}l(\theta))_{j=1,...,p} \in \mathbb{R}^p \text{ and } \mathbb{E}_{\theta}[S(\theta)] = 0 \in \mathbb{R}^p 
+$$
+
+
+
+
+이제 일차원에서와 같이 $\hat{\eta}, S(\theta)$간의 공분산은 다음과 같이 계산할 수 있다.
+
+
+$$
+\begin{align*} \text{Cov}_{\theta}[\hat{\eta}, S(\theta)] &= \mathbb{E}_{\theta}[(\hat{\eta}-\mathbb{E}_{\theta}[\hat{\eta}])(S(\theta) - \mathbb{E}_{\theta}[S(\theta)])^T]\\ &= \mathbb{E}[\hat{\eta}S(\theta)^T] \\ &= (\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}])^T \in \mathbb{R}^{m \times p}
+
+\end{align*} 
+$$
+
+
+
+
+한편 다음의 결합 확률 벡터 $(\hat{\eta}, S(\theta))\in \mathbb{R}^{m+p}$의 분산행렬은 양의 준정부호이다.
+
+
+$$
+ \begin{pmatrix} \text{Var}_{\theta}(\hat{\eta}) & \text{Cov}_{\theta}(\hat{\eta}, S(\theta)) \\ \text{Cov}_{\theta}(\hat{\eta}, S(\theta))^T & \text{Var}_{\theta}(S(\theta)) \end{pmatrix} =
+
+\begin{pmatrix} \text{Var}_{\theta}(\hat{\eta}) & \frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}]^T \\ \frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}] & nI(\theta) \end{pmatrix} \succeq 0 
+$$
+
+
+
+
+이에 대한 필요충분 조건은 다음과 같다.
+
+ 
+$$
+\text{Var}_{\theta}(\hat{\eta}) - \text{Cov}_{\theta}(\hat{\eta}, S(\theta))[\text{Var}_{\theta}(S(\theta))]^{-1}\text{Cov}_{\theta}(\hat{\eta}, S(\theta))^T \succeq 0
+$$
+
+
+
+
+이제 위 부등식에 앞에서 구한 공분산행렬에 대한 관계식을 대입하면 다음이 성립한다.
+
+
+$$
+ \text{Var}_{\theta}(\hat{\eta}) - (\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}])^T[nI(\theta)]^{-1} (\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}]) \succeq 0, \ \forall \theta \in \Omega
+$$
+
+
+
+
+Note. 위 정보량 부등식의 하한에서 $(nI(\theta))^{-1}$를 구하기 힘든 경우, $\zeta = g(\theta)$이고 $g:\mathbb{R}^p \rightarrow \mathbb{R}^p$가 전단사이고, 미분가능한 함수이면 다음과 같이 $\zeta$를 이용하여 구할 수 있다.
+
+다차원 모수 $\theta=(\theta_1,...,\theta_p)^T$에 대응하는 $\zeta=(\zeta_1,...,\zeta_p)^T$에 대하여 야코비안 행렬을다음과 같이 표기하자.
+
+$$ \frac{\partial{\zeta}}{\partial{\theta}} := (\frac{\partial{\zeta_i}}{\partial{\theta_j}})_{i,j} \in \mathbb{R}^{p \times p} $$
+
+또한, 연쇄 법칙에 의해 다음이 성립한다.
+
+$$ \frac{\partial f}{\partial \theta_j} = \sum_{i=1}^p\frac{\partial f}{\partial \zeta_i} \cdot \frac{\partial \zeta_i}{\partial \theta_j} = (\frac{\partial{\zeta}}{\partial{\theta}}^T \cdot \frac{\partial f}{\partial \zeta})_j, \ j=1,...,p $$
+
+따라서, 다음의 관계식이 성립한다.
+
+
+$$
+ \begin{align*} \frac{\partial}{\partial \theta}f(x;\theta) &= (\frac{\partial \zeta}{\partial \theta})^T\cdot\frac{\partial }{\partial \zeta}f(x;g^{-1}(\zeta)) \\ \frac{\partial}{\partial \theta} \mathbb{E}_{\theta}[\hat{\eta}] &=(\frac{\partial \zeta}{\partial \theta})^T\cdot  \frac{\partial }{\partial \zeta} \mathbb{E}_{\zeta}[\hat{\eta}] \\ \text{Var}_{\theta}[\frac{\partial}{\partial \theta} \log f(X_1;\theta)] &= (\frac{\partial \zeta}{\partial \theta})^T\text{Var}_{\zeta}[\frac{\partial }{\partial \zeta}\log f(X_1;g^{-1}(\zeta))](\frac{\partial \zeta}{\partial \theta})
+
+\end{align*}
+$$
+
+
+
+
+이제 이를 정보량 부등식의 하한에 대입하면 다음과 같다.
+
+
+$$
+\begin{align*} (\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n))^T(n \text{Var}_{\theta}[\frac{\partial}{\partial \theta}\log f(X_1;\theta)])^{-1}(\frac{\partial}{\partial \theta}\mathbb{E}_{\theta}(\hat{\eta}_n)) &= (\frac{\partial \zeta}{\partial \theta}^T  \frac{\partial }{\partial \zeta} \mathbb{E}_{\zeta}[\hat{\eta}])^T[n\frac{\partial \zeta}{\partial \theta}^T\text{Var}_{\zeta}[\frac{\partial }{\partial \zeta}\log f(X_1;g^{-1}(\zeta))]\frac{\partial \zeta}{\partial \theta}]^{-1}(\frac{\partial \zeta}{\partial \theta}^T  \frac{\partial }{\partial \zeta} \mathbb{E}_{\zeta}[\hat{\eta}])\\ &= (\frac{\partial }{\partial \zeta} \mathbb{E}_{\zeta}[\hat{\eta}])^T \frac{\partial \zeta}{\partial \theta}(\frac{\partial \zeta}{\partial \theta})^{-1}[n\text{Var}_{\zeta}[\frac{\partial }{\partial \zeta}\log f(X_1;g^{-1}(\zeta))]]^{-1} (\frac{\partial \zeta}{\partial \theta}^T)^{-1}\frac{\partial \zeta}{\partial \theta}^T(\frac{\partial }{\partial \zeta} \mathbb{E}_{\zeta}[\hat{\eta}]) \\ &= (\frac{\partial }{\partial \zeta} \mathbb{E}_{\zeta}[\hat{\eta}])^T [n\text{Var}_{\zeta}[\frac{\partial }{\partial \zeta}\log f(X_1;g^{-1}(\zeta))]]^{-1} (\frac{\partial}{\partial \zeta}\mathbb{E}_{\zeta}[\hat{\eta}]))
+
+\end{align*} 
+$$
+
+
+
+
+즉, 하한은 모수의 일대일 변환에 대해 불변이다.
+
+**Note**. $\eta(\theta) = \theta$이고,  $\theta$의 불편 추정량을 $\hat{\theta}^{\text{UE}}$라고 하면, $\hat{\eta} = \eta(\hat{\theta}^{\text{UE}}) = \hat{\theta}^{\text{UE}}$에 대한 정보량 부등식의 하한은 다음과 같이 주어진다.
+
+
+$$
+\begin{align*} (\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}])^T[nI(\theta)]^{-1} (\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\eta}]) &= (\frac{\partial}{\partial \theta}\theta)^T[nI(\theta)]^{-1} (\frac{\partial}{\partial \theta} \theta) \\ &= I_p^T[nI(\theta)]^{-1}I_p = \frac{1}{n}I(\theta)^{-1}
+
+\end{align*}
+$$
+
+
+
+
+즉, 다음의 부등식이 성립한다.
+
+$$ \text{Var}_{\theta}[\sqrt{n} (\hat{\theta}^{\text{UE}} - \theta)]=n\text{Var}(\hat{\eta}) \succeq I(\theta)^{-1} $$
+
+따라서 $\sqrt{n}(\hat{\theta} - \theta) \xrightarrow{d} \mathcal{N}(0, \sigma^2(\theta))$와 같은 점근정규성이 성립하는 모든 추정량의 극한분포의 분산 $\sigma^2(\theta)$
+
+에 대해 항상 $\sigma^2(\theta) \succeq I(\theta)^{-1}$이 성립한다. 다시 말해서,
+
+$$ c^T(\sigma^2(\theta) - I(\theta)^{-1})c \geq 0, \ \forall c\in \mathbb{R}^p $$
+
+한편 $\hat{\theta}^{\text{MLE}}$가 일치성을 만족한다면, 잉여항의 적절한 처리를 통해 $\sqrt{n}(\hat{\theta}^{\text{MLE}} - \theta) \xrightarrow{d} \mathcal{N}(0,I(\theta)^{-1})$의 점근정규성이 성립함을 알고 있다. 즉 적절한 조건 하에서 최대 가능도 추정량은 점근 정규성을 갖는 추정량 중에서 가장 작은 분산을 갖는다.
