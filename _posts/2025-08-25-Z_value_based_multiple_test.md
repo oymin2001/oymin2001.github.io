@@ -218,7 +218,7 @@ $$
 이를 이용한 결정 규칙 $$\delta(\hat{T}_{\text{OR}}, \hat{\lambda}_{\text{OR}})$$은 $T_{\text{OR}}$에 대한 SMLR 가정하에 다음이 성립한다.
 
 1. $$\delta(\hat{T}_{\text{OR}}, \hat{\lambda}_{\text{OR}})$$은 무한 표본에 대해서 mFDR을 $\alpha$이하로 통제한다.
-2. $$\delta(\hat{T}_{\text{OR}}, \hat{\lambda}_{\text{OR}})$$은 무한 표본에 대해서 $\tilde{Q}_{OR}(\lambda_{OR}) + o(1)$이다.
+2. $$\delta(\hat{T}_{\text{OR}}, \hat{\lambda}_{\text{OR}})$$은 무한 표본에 대해서 $$\tilde{Q}_{OR}(\lambda_{OR}) + o(1)$$이다.
 
 다시말해서, 표본의 수가 무한히 많아지면 $\delta(T_{\text{OR}}, \lambda_{\text{OR}})$와 같은 성능을 보인다.
 
